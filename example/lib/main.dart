@@ -309,8 +309,8 @@ class MyCustomTransition extends CustomSeafarerTransition {
 class CustomRouteGuard extends SeafarerRouteGuard {
   @override
   Future<bool> canOpen(
-    BuildContext? context,
-    BaseArguments? args,
+    BuildContext context,
+    BaseArguments args,
     ParamMap paramMap,
   ) async {
     return false;

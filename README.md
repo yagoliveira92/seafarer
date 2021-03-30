@@ -1,6 +1,6 @@
-# seafarer
+# Seafarer
 
-![anchor_image](https://raw.githubusercontent.com/gurleensethi/seafarer/master/images/anchor-icon.png)
+![anchor_image](https://raw.githubusercontent.com/yagoliveira92/seafarer/main/images/anchor-icon.png)
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 [![pub_package](https://img.shields.io/pub/vpre/seafarer.svg)](https://pub.dev/packages/seafarer)
@@ -8,6 +8,8 @@
 A Flutter package for easy navigation management.
 
 #### Warning: Package is still under development, there might be breaking changes in future.
+
+#### Warning 2: This package is a Null Safety migration to another package [Sailor](https://pub.dev/packages/sailor). All of content is a fork for this.
 
 ## Index
 
@@ -22,12 +24,12 @@ A Flutter package for easy navigation management.
 
 ## Setup and Usage
 
-1. Create an instance of `seafarer` and add routes.
+1. Create an instance of `Seafarer` and add routes.
 
 ```dart
 // Routes class is created by you.
 class Routes {
-  static final seafarer = seafarer();
+  static final seafarer = Seafarer();
 
   static void createRoutes() {
     seafarer.addRoute(seafarerRoute(
@@ -47,7 +49,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'seafarer Example',
+      title: 'Seafarer Example',
       home: Home(),
       navigatorKey: Routes.seafarer.navigatorKey,  // important
       onGenerateRoute: Routes.seafarer.generator(),  // important
@@ -85,11 +87,11 @@ Routes.seafarer("/secondPage");
 
 ```dart
 seafarer.addRoutes([
-  seafarerRoute(
+  SeafarerRoute(
     name: "/secondPage",
     builder: (context, args, params) => SecondPage(),
     params: [
-      seafarerParam<int>(
+      SeafarerParam<int>(
         name: 'id',
         defaultValue: 1234,
       ),
@@ -111,8 +113,8 @@ Routes.seafarer.navigate<bool>("/secondPage", params: {
 **Route Builder:**
 
 ```dart
-seafarer.addRoutes([
-  seafarerRoute(
+Seafarer.addRoutes([
+  SeafarerRoute(
     name: "/secondPage",
     builder: (context, args, params) {
       // Getting a param
@@ -120,7 +122,7 @@ seafarer.addRoutes([
       return SecondPage();
     },
     params: [
-      seafarerParam(
+      SeafarerParam(
         name: 'id',
         defaultValue: 1234,
       ),
@@ -135,7 +137,7 @@ seafarer.addRoutes([
 class SecondPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final id = seafarer.param<int>(context, 'id');
+    final id = Seafarer.param<int>(context, 'id');
 
     ...
 
@@ -147,7 +149,7 @@ Make sure to specify the type of paramter when declaring `seafarerParam<T>`. Thi
 
 ## Passing Arguments
 
-`seafarer` allows you to pass arguments to the page that you are navigating to.
+`Seafarer` allows you to pass arguments to the page that you are navigating to.
 
 - Create a class that extends from `BaseArguments`.
 
@@ -174,7 +176,7 @@ final response = Routes.seafarer.navigate(
 class SecondPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final args = seafarer.args<SecondPageArgs>(context);
+    final args = Seafarer.args<SecondPageArgs>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -195,12 +197,12 @@ Routes can be protected from being opened when `navigate` is called using `route
 A route guard can be added when declaring a `seafarerRoute`.
 
 ```dart
-seafarer.addRoutes([
-  seafarerRoute(
+Seafarer.addRoutes([
+  SeafarerRoute(
     name: "/secondPage",
     builder: (context, args, params) => SecondPage(),
     routeGuards: [
-      seafarerRouteGuard.simple((context, args, params) async {
+      SeafarerRouteGuard.simple((context, args, params) async {
         // Can open logic goes here.
         if (sharedPreferences.getToken() != null) {
           return true;
@@ -218,7 +220,7 @@ There are two ways to create a route guard:
 
 - Using `seafarerRouteGuard.simple`, as shown above.
 ```dart
-seafarerRouteGuard.simple((context, args, params) async {
+SeafarerRouteGuard.simple((context, args, params) async {
   // Can open logic goes here.
   if (sharedPreferences.getToken() != null) {
     return true;
@@ -226,9 +228,9 @@ seafarerRouteGuard.simple((context, args, params) async {
   return false;
 });
 ```
-- Extending `seafarerRouteGuard` class.
+- Extending `SeafarerRouteGuard` class.
 ```dart
-class CustomRouteGuard extends seafarerRouteGuard {
+class CustomRouteGuard extends SeafarerRouteGuard {
   @override
   Future<bool> canOpen(
     BuildContext context,
@@ -248,9 +250,9 @@ seafarer has inbuilt support for page transitions. A transition is specified usi
 
 Transition can be specified at 3 levels (ordered in priority from highest to lowest):
 
-- When Navigating (using `seafarer.navigate`).
-- While adding routes (`seafarerRoute`).
-- Global transitions (`seafarerOptions`).
+- When Navigating (using `Seafarer.navigate`).
+- While adding routes (`SeafarerRoute`).
+- Global transitions (`SeafarerOptions`).
 
 ### When navigating
 
@@ -310,7 +312,7 @@ seafarer.addRoute(seafarerRoute(
 ));
 ```
 
-Priority: Transitions provided in `seafarer.navigate` while navigating to this route, will override these transitions.
+Priority: Transitions provided in `Seafarer.navigate` while navigating to this route, will override these transitions.
 
 ### Global transitions
 
@@ -366,18 +368,18 @@ Routes.seafarer.navigate<bool>(
 - When declaring a `seafarerRoute`.
 
 ```dart
-seafarerRoute(
+SeafarerRoute(
   name: "/secondPage",
   builder: (context, args, params) => SecondPage(),
   customTransition: MyCustomTransition(),
 ),
 ```
 
-- In `seafarerOptions`:
+- In `SeafarerOptions`:
 
 ```dart
 static final seafarer = seafarer(
-  options: seafarerOptions(
+  options: SeafarerOptions(
     customTransition: MyCustomTransition(),
   ),
 );
@@ -417,8 +419,8 @@ print("Third Page Response ${responses[1]}");
 
 ## Log Navigation
 
-Use `seafarerLoggingObserver` to log the `push`/`pop` navigation inside the application.
-Add the `seafarerLoggingObserver` to the `navigatorObservers` list inside your `MaterialApp`.
+Use `SeafarerLoggingObserver` to log the `push`/`pop` navigation inside the application.
+Add the `SeafarerLoggingObserver` to the `navigatorObservers` list inside your `MaterialApp`.
 
 ```dart
 class App extends StatelessWidget {
@@ -429,7 +431,7 @@ class App extends StatelessWidget {
       home: Home(),
       onGenerateRoute: Routes.seafarer.generator(),
       navigatorObservers: [
-        seafarerLoggingObserver(),
+        SeafarerLoggingObserver(),
       ],
     );
   }
