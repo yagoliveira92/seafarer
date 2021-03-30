@@ -3,7 +3,7 @@ import 'dart:collection';
 abstract class _TreeNode<T> {
   final String urlPart;
   T value;
-  final Map<String, _TreeNode<T>> children = {};
+  final Map<String, _TreeNode<T?>> children = {};
 
   _TreeNode(this.urlPart, this.value);
 
@@ -70,12 +70,12 @@ class UrlTree<T> {
   }
 
   void printBFS() {
-    final Queue<_TreeNode<T>> queue = Queue();
+    final Queue<_TreeNode<T?>> queue = Queue();
     queue.add(this.root);
 
     while (queue.isNotEmpty) {
-      final _TreeNode<T> temp = queue.removeFirst();
-      for (_TreeNode<T> child in temp.children.values) {
+      final _TreeNode<T?> temp = queue.removeFirst();
+      for (_TreeNode<T?> child in temp.children.values) {
         queue.add(child);
       }
       print("$temp(${temp.urlPart}) --> ${temp.value}");
