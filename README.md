@@ -300,7 +300,7 @@ In the above example the page will slide in from right with a fade in animation.
 You can specify the default transition for a route, so you don't have to specify it again and again when navigating.
 
 ```dart
-seafarer.addRoute(seafarerRoute(
+Seafarer.addRoute(SeafarerRoute(
   name: "/secondPage",
   defaultTransitions: [
     SeafarerTransition.slide_from_bottom,
@@ -319,7 +319,7 @@ Priority: Transitions provided in `Seafarer.navigate` while navigating to this r
 You can specify default transition to be used for all routes in `seafarer`.
 
 ```dart
-seafarerOptions(
+SeafarerOptions(
   defaultTransitions: [
     SeafarerTransition.slide_from_bottom,
     SeafarerTransition.zoom_in,
@@ -378,7 +378,7 @@ SeafarerRoute(
 - In `SeafarerOptions`:
 
 ```dart
-static final seafarer = seafarer(
+static final seafarer = Seafarer(
   options: SeafarerOptions(
     customTransition: MyCustomTransition(),
   ),
