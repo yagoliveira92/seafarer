@@ -243,11 +243,7 @@ class Seafarer {
   ) {
     assert(routeArgsPairs.isNotEmpty);
 
-    final pageResponses = <Future>[];
-
-    // For each route check if it exists.
-    // Push the route.
-    routeArgsPairs.forEach((routeArgs) {
+    final pageResponses = routeArgsPairs.map((routeArgs) {
       _checkAndThrowRouteNotFound(
         routeArgs.name,
         routeArgs.args,
@@ -255,7 +251,7 @@ class Seafarer {
         NavigationType.push,
       );
 
-      final response = _navigate(
+      return _navigate(
         routeArgs.name,
         routeArgs.args,
         // TODO(gurleensethi): Give user the ability to use any type of NavigationType
@@ -268,9 +264,10 @@ class Seafarer {
         null,
         routeArgs.customTransition,
       );
-
-      pageResponses.add(response);
     });
+
+    // For each route check if it exists.
+    // Push the route.
 
     return Future.wait(pageResponses);
   }
@@ -311,7 +308,9 @@ class Seafarer {
       routeParams.forEach((key, value) {
         // Type of paramter passed should be the same
         // when type is declared.
-        if (params!.containsKey(value.name) && params[value.name] != null) {
+        if (params != null &&
+            params.containsKey(value.name) &&
+            params[value.name] != null) {
           final passedParamType = params[value.name].runtimeType;
           if (passedParamType != value.paramType) {
             AppLogger.instance.warning("Invalid Parameter Type! "
@@ -322,7 +321,7 @@ class Seafarer {
 
         // All paramters that are 'required' should be passed.
         bool isMissingRequiredParam = value.isRequired &&
-            (!params.containsKey(value.name));
+            !(params != null && params.containsKey(value.name));
 
         if (isMissingRequiredParam) {
           AppLogger.instance.warning(ParameterNotProvidedError(
@@ -397,7 +396,6 @@ class Seafarer {
     BaseArguments? args,
     NavigationType navigationType,
   ) {
-
     if (!_routeNameMappings.containsKey(name)) {
       if (this.options.handleNameNotFoundUI) {
         this.navigatorKey!.currentState!.push(
@@ -421,7 +419,10 @@ class Seafarer {
 
   /// Delegation for [Navigator.popUntil].
   void popUntil(void Function(Route<dynamic>) predicate) {
-    this.navigatorKey!.currentState!.popUntil(predicate as bool Function(Route<dynamic>));
+    this
+        .navigatorKey!
+        .currentState!
+        .popUntil(predicate as bool Function(Route<dynamic>));
   }
 
   /// Generates the [RouteFactory] which builds a [Route] on request.
@@ -452,7 +453,8 @@ class Seafarer {
       final List<SeafarerTransition> transitions = [];
 
       final bool areTransitionsProvidedInNavigate =
-          argsWrapper.transitions != null && argsWrapper.transitions!.isNotEmpty;
+          argsWrapper.transitions != null &&
+              argsWrapper.transitions!.isNotEmpty;
       final bool areTransitionsProvidedInRouteDeclaration =
           route.defaultTransitions != null &&
               route.defaultTransitions!.isNotEmpty;
