@@ -247,14 +247,12 @@ class Seafarer {
       _checkAndThrowRouteNotFound(
         routeArgs.name,
         routeArgs.args,
-        // TODO(gurleensethi): Give user the ability to use any type of NavigationType
         NavigationType.push,
       );
 
       return _navigate(
         routeArgs.name,
         routeArgs.args,
-        // TODO(gurleensethi): Give user the ability to use any type of NavigationType
         NavigationType.push,
         null,
         null,
@@ -435,7 +433,6 @@ class Seafarer {
 
       if (route == null) return null;
 
-      // TODO(gurleensethi): Check if this is a seafarer route or a normal route.
       ArgumentsWrapper? argsWrapper = settings.arguments as ArgumentsWrapper?;
 
       // If for some reason the arguments passed themself are null.

@@ -1,9 +1,7 @@
 import 'package:seafarer/src/url_parser/url_tree.dart';
 import 'package:test/test.dart';
 
-void main() {
-  //TODO: Need replace all fake tests.
-  
+void main() {  
   late UrlTree<String> _tree;
 
   setUp(() {
