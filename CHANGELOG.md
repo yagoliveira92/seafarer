@@ -1,3 +1,3 @@
-## [0.0.1] - TODO: Add release date.
+## [0.1.0] - Port to Null Safety.
 
-* TODO: Describe initial release.
+* Port the sailor Package to Null Safety.
