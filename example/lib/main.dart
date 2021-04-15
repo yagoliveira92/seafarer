@@ -43,7 +43,7 @@ class Home extends StatelessWidget {
                   ],
                   customTransition: MyCustomTransition(),
                   params: {
-                    'id': null,
+                    'id': '123',
                   },
                 );
 
@@ -234,7 +234,7 @@ class PushReplacePage extends StatelessWidget {
 }
 
 class Routes {
-  static final seafarer = seafarer(
+  static final seafarer = Seafarer(
     options: SeafarerOptions(
       handleNameNotFoundUI: true,
       isLoggingEnabled: true,
@@ -309,8 +309,8 @@ class MyCustomTransition extends CustomSeafarerTransition {
 class CustomRouteGuard extends SeafarerRouteGuard {
   @override
   Future<bool> canOpen(
-    BuildContext context,
-    BaseArguments args,
+    BuildContext? context,
+    BaseArguments? args,
     ParamMap paramMap,
   ) async {
     return false;
