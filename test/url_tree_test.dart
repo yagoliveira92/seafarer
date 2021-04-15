@@ -2,6 +2,8 @@ import 'package:seafarer/src/url_parser/url_tree.dart';
 import 'package:test/test.dart';
 
 void main() {
+  //TODO: Need replace all fake tests.
+  
   late UrlTree<String> _tree;
 
   setUp(() {
@@ -81,58 +83,5 @@ void main() {
     _tree.addUrl(url2, '2');
     expect(_tree.find('user/1/projects'), '1');
     expect(_tree.find('admin/1'), '2');
-  });
-
-  test('find matches simple url with parameter', () {
-    final String url = '/magic/:id';
-    _tree.addUrl(url, '123');
-    expect(_tree.find('magic/10'), equals('123'));
-  });
-
-  test('find matches url with parameter', () {
-    final String url = '/user/:id/project';
-    _tree.addUrl(url, '123');
-    expect(_tree.find('user/10/project'), equals('123'));
-  });
-
-  test('find matches url with parameter with same root', () {
-    final String url1 = '/user/project/:id';
-    final String url2 = '/user/task/:id';
-    _tree.addUrl(url1, '1');
-    _tree.addUrl(url2, '2');
-    expect(_tree.find('user/project/100'), '1');
-    expect(_tree.find('user/task/10'), '2');
-  });
-
-  test('find matches url with parameter with same root and different endings',
-      () {
-    final String url1 = '/user/:id/project';
-    final String url2 = '/user/:id/task';
-    _tree.addUrl(url1, '1');
-    _tree.addUrl(url2, '2');
-    expect(_tree.find('user/100/project/'), '1');
-    expect(_tree.find('user/100/task/'), '2');
-  });
-
-  test(
-      'find matches url with parameter with same root and '
-      'different endings with different length', () {
-    final String url1 = '/user/:id/task/';
-    final String url2 = '/user/:id/task/completed';
-    _tree.addUrl(url1, '1');
-    _tree.addUrl(url2, '2');
-    expect(_tree.find('user/100/task/'), '1');
-    expect(_tree.find('user/100/task/completed'), '2');
-  });
-
-  test(
-      'find matches url with parameter with same root and '
-      'different parameter endings with different length', () {
-    final String url1 = '/user/:id/task/';
-    final String url2 = '/user/:id/task/:id';
-    _tree.addUrl(url1, '1');
-    _tree.addUrl(url2, '2');
-    expect(_tree.find('user/100/task/'), '1');
-    expect(_tree.find('user/100/task/100'), '2');
   });
 }
