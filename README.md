@@ -1,11 +1,22 @@
-# Seafarer
+<p align="center">
+  <a>
+    <img src="https://raw.githubusercontent.com/yagoliveira92/seafarer/main/images/seafarer-logo.png" alt="Logo">
+  </a>
 
-![anchor_image](https://raw.githubusercontent.com/yagoliveira92/seafarer/main/images/anchor-icon.png)
+  <h1 align="center">Seafarer</h3>
+  <p align="center">
+    A Flutter package for easy navigation management.
+   <br>
+    <p align="center">
+      <img src="https://img.shields.io/badge/flutter-2.0.4-blue" />
+      <img src="https://img.shields.io/badge/dart-%3E=2.2.2%20%3C3.0.0-blue" />
+      <img src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fatrox%2Fsync-dotenv%2Fbadge" />
+      <img src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+    </p>
+  </p>
+</p>
 
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 [![pub_package](https://img.shields.io/pub/vpre/seafarer.svg)](https://pub.dev/packages/seafarer)
-
-A Flutter package for easy navigation management.
 
 #### Warning: Package is still under development, there might be breaking changes in future.
 
