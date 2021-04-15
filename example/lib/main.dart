@@ -62,30 +62,10 @@ class Home extends StatelessWidget {
                     "/thirdPage",
                     args: ThirdPageArgs(10),
                   ),
-                  RouteArgsPair("/pushReplacePage"),
                 ]);
 
                 print("Second Page Response ${responses[0]}");
                 print("Third Page Response ${responses[1]}");
-                print("Third Page Response ${responses[2]}");
-              },
-            ),
-            ElevatedButton(
-              child: Text('Push Replace Page'),
-              onPressed: () async {
-                Routes.seafarer.navigate("/pushReplacePage");
-              },
-            ),
-            ElevatedButton(
-              child: Text('Print navigation stack!'),
-              onPressed: () {
-                Routes.seafarer.navigationStackObserver.prettyPrintStack();
-              },
-            ),
-            ElevatedButton(
-              child: Text('Push Replace Page'),
-              onPressed: () async {
-                Routes.seafarer.navigate("/pushReplacePage");
               },
             ),
             ElevatedButton(
@@ -117,7 +97,7 @@ class SecondPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final args = Seafarer.args<SecondPageArgs>(context);
-    final id = Seafarer.param<int>(context, 'id');
+    final id = Seafarer.param<String>(context, 'id');
 
     return Scaffold(
       appBar: AppBar(
@@ -192,7 +172,7 @@ class PushReplacePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Third Page'),
+        title: Text('PushReplacePage'),
       ),
       body: Center(
         child: Column(
@@ -234,7 +214,7 @@ class PushReplacePage extends StatelessWidget {
 }
 
 class Routes {
-  static final seafarer = seafarer(
+  static final seafarer = Seafarer(
     options: SeafarerOptions(
       handleNameNotFoundUI: true,
       isLoggingEnabled: true,
@@ -269,7 +249,6 @@ class Routes {
             SeafarerRouteGuard.simple((context, args, params) async {
               return true;
             }),
-            CustomRouteGuard(),
           ],
         ),
         SeafarerRoute(
