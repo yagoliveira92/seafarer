@@ -416,11 +416,11 @@ class Seafarer {
   }
 
   /// Delegation for [Navigator.popUntil].
-  void popUntil(void Function(Route<dynamic>) predicate) {
+  void popUntil(bool Function(Route<dynamic>) predicate) {
     this
         .navigatorKey!
         .currentState!
-        .popUntil(predicate as bool Function(Route<dynamic>));
+        .popUntil(predicate);
   }
 
   /// Generates the [RouteFactory] which builds a [Route] on request.
